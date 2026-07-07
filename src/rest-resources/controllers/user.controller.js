@@ -4,6 +4,7 @@ import UserLogin from '../../services/user/userLogin.service'
 import Logout from '../../services/user/logout.service'
 import ResetPassword from '../../services/user/resetPassword.service'
 import UpdateApiKey from '../../services/user/updateApiKey.service'
+import GetApiKeyStatus from '../../services/user/getApiKeyStatus.service'
 
 export default class UserController {
   static async register (req, res, next) {
@@ -83,6 +84,21 @@ export default class UserController {
     try {
       const { result, successful, errors } = await UpdateApiKey.execute(
         { userId: req.userId, apiKey: req.body.apiKey },
+        req.context
+      )
+      sendResponse(
+        { req, res, next },
+        { result, successful, serviceErrors: errors }
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async checkApiKeyStatus (req, res, next) {
+    try {
+      const { result, successful, errors } = await GetApiKeyStatus.execute(
+        { userId: req.userId },
         req.context
       )
       sendResponse(

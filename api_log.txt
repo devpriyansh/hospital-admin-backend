@@ -515,3 +515,4 @@ HIT /api route: POST /v1/user/login
 HIT /api route: GET /v1/parent/dashboard
 HIT /api route: GET /v1/parent/dashboard
 HIT /api route: GET /v1/parent/dashboard
+HIT /api route: POST /v1/user/login
