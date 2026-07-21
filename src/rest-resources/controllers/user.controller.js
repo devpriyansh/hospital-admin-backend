@@ -8,8 +8,24 @@ import GetApiKeyStatus from '../../services/user/getApiKeyStatus.service'
 import GoogleLogin from '../../services/user/googleLogin.service'
 import sendVerificationOtp from '../../services/user/sendVerificationOtp.service'
 import verifyOtp from '../../services/user/verifyOtp.service'
+import UpdateProfile from '../../services/user/updateProfile.service'
 
 export default class UserController {
+  static async updateProfile (req, res, next) {
+    try {
+      const { result, successful, errors } = await UpdateProfile.execute(
+        { ...req.body, userId: req.userId },
+        req.context
+      )
+      sendResponse(
+        { req, res, next },
+        { result, successful, serviceErrors: errors }
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async register (req, res, next) {
     console.log('HIT UserController.register!')
     try {

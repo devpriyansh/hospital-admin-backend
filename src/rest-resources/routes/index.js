@@ -7,7 +7,7 @@ import fs from 'fs'
 
 const router = express.Router()
 router.use('/api', (req, res, next) => {
-  fs.appendFileSync('api_log.txt', 'HIT /api route: ' + req.method + ' ' + req.url + '\n')
+  // fs.appendFileSync('api_log.txt', 'HIT /api route: ' + req.method + ' ' + req.url + '\n')
   console.log('HIT /api route:', req.method, req.url)
   next()
 }, contextMiddleware, apiRouter)

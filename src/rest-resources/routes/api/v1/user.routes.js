@@ -85,4 +85,10 @@ userRoutes.route('/api-key-status').get(
   responseValidationMiddleware(standardResponseSchema)
 )
 
+userRoutes.route('/profile').put(
+  isUserAuthenticated,
+  UserController.updateProfile,
+  responseValidationMiddleware(standardResponseSchema)
+)
+
 export default userRoutes
