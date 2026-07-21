@@ -1,4 +1,4 @@
-import db from './src/db/models/index.js';
+import db from './src/db/models/index.js'
 
 const coloringPages = [
   { id: 1, title: 'Happy Apple', image: '🍎' },
@@ -16,10 +16,10 @@ const coloringPages = [
   { id: 13, title: 'Happy Fish', image: '🐟' },
   { id: 14, title: 'Space Rocket', image: '🚀' },
   { id: 15, title: 'Teddy Bear', image: '🧸' }
-];
+]
 
-async function run() {
-  const levels = ['nursery', 'kg1', 'kg2'];
+async function run () {
+  const levels = ['nursery', 'kg1', 'kg2']
   for (const level of levels) {
     for (const page of coloringPages) {
       const [quiz] = await db.Quiz.findOrCreate({
@@ -29,11 +29,11 @@ async function run() {
           class_level: level,
           image_url: page.image
         }
-      });
-      console.log(`Created: ${quiz.title} for ${level}`);
+      })
+      console.log(`Created: ${quiz.title} for ${level}`)
     }
   }
-  console.log('Done adding coloring quizzes!');
-  process.exit(0);
+  console.log('Done adding coloring quizzes!')
+  process.exit(0)
 }
-run();
+run()

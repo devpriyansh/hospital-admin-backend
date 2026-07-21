@@ -42,6 +42,14 @@ export const SocketRequestInputValidationErrorType = {
   errorCode: 3003
 }
 
+export const EmailNotVerifiedErrorType = {
+  name: 'EmailNotVerifiedError',
+  statusCode: StatusCodes.BAD_REQUEST,
+  isOperational: true,
+  description: 'Email address has not been verified. Please verify your email first.',
+  errorCode: 3010
+}
+
 export const RecentEmailChangeErrorType = {
   name: 'RecentEmailChangeError',
   statusCode: StatusCodes.BAD_REQUEST,
@@ -649,6 +657,16 @@ export const ResetTokenAlreadyUsedErrorType = {
   description:
     'The reset token has already been used. Please request a new token.',
   errorCode: 3017
+}
+
+
+export const UserAlreadyExistsErrorType = {
+  name: 'UserAlreadyExistsError',
+  statusCode: StatusCodes.BAD_REQUEST,
+  isOperational: true,
+  description:
+    'User has already exists.',
+  errorCode: 3018
 }
 
 export const UserAlreadyResetPasswordErrorType = {
