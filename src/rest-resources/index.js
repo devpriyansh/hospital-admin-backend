@@ -17,10 +17,12 @@ app.use(bodyParser.json())
 
 app.use(morgan('tiny'))
 
+import config from '../configs/app.config'
+
 // CORS Configuration
 const corsOptions = {
   credentials: true,
-  origin: '*',
+  origin: config.get('cors.origin') || '*',
   methods: ['GET, POST, PUT, PATCH, DELETE']
 }
 

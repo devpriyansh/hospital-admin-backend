@@ -85,6 +85,15 @@ const config = convict({
     }
   },
 
+  cors: {
+    origin: {
+      doc: 'Allowed CORS origin for the frontend',
+      format: String,
+      default: 'http://localhost:5173',
+      env: 'CORS_ORIGIN'
+    }
+  },
+
   // redis_db: {
   //   password: {
   //     doc: 'Redis Database password',
