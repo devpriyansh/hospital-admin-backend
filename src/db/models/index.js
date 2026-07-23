@@ -1,13 +1,18 @@
-import fs from 'fs'
-import path from 'path'
 import Sequelize from 'sequelize'
-import * as databaseConfig from '../../configs/database.config'
+import * as databaseConfig from '../../configs/database.config.js'
+
+import UserModel from './users.model.js'
+import UserSessionModel from './userSession.model.js'
+import ServiceModel from './service.model.js'
+import DoctorModel from './doctor.model.js'
+import DoctorScheduleModel from './doctorSchedule.model.js'
+import ConditionModel from './condition.model.js'
+import AppointmentModel from './appointment.model.js'
+import TestimonialModel from './testimonial.model.js'
+import SiteConfigModel from './siteConfig.model.js'
 
 const env = process.env.NODE_ENV || 'development'
-const basename = path.basename(__filename)
 const config = databaseConfig[env]
-
-const db = {}
 
 let sequelize
 if (config.use_env_variable) {
@@ -21,25 +26,27 @@ if (config.use_env_variable) {
   )
 }
 
-fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-    )
-  })
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file)).default(
-      sequelize,
-      Sequelize.DataTypes
-    )
-    db[model.name] = model
-  })
+// Register models
+const db = {}
+db.User = UserModel(sequelize, Sequelize.DataTypes)
+db.UserSession = UserSessionModel(sequelize, Sequelize.DataTypes)
+db.Service = ServiceModel(sequelize, Sequelize.DataTypes)
+db.Doctor = DoctorModel(sequelize, Sequelize.DataTypes)
+db.DoctorSchedule = DoctorScheduleModel(sequelize, Sequelize.DataTypes)
+db.Condition = ConditionModel(sequelize, Sequelize.DataTypes)
+db.Appointment = AppointmentModel(sequelize, Sequelize.DataTypes)
+db.Testimonial = TestimonialModel(sequelize, Sequelize.DataTypes)
+db.SiteConfig = SiteConfigModel(sequelize, Sequelize.DataTypes)
 
+// Apply associations
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
   }
 })
+
+db.sequelize = sequelize
+db.Sequelize = Sequelize
 
 export { sequelize, Sequelize }
 export default db
